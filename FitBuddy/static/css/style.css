@@ -1,0 +1,247 @@
+:root {
+    --primary: #ff5722;
+    --primary-dark: #e64a19;
+    --secondary: #2b2f38;
+    --bg: #f4f5f7;
+    --card-bg: #ffffff;
+    --text: #22262b;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --success-bg: #e6f7ed;
+    --success-text: #1a7f4b;
+    --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--secondary);
+    color: #fff;
+    padding: 16px 24px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.navbar .brand {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.navbar nav a {
+    color: #d1d5db;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+.navbar nav a:hover { color: #fff; }
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border);
+}
+
+.hero {
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary), #ff8a50);
+    color: #fff;
+    border: none;
+}
+
+.hero h1 { margin: 0 0 8px; font-size: 1.9rem; }
+.subtitle { color: rgba(255,255,255,0.9); margin: 0; }
+.form-card .subtitle { color: var(--muted); }
+
+.fitbuddy-form { display: flex; flex-direction: column; gap: 16px; margin-top: 12px; }
+.form-row { display: flex; flex-direction: column; gap: 6px; }
+.form-row-half { flex-direction: row; gap: 16px; }
+.form-row-half > div { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+
+label { font-weight: 600; font-size: 0.92rem; }
+
+input[type="text"], input[type="number"], select, textarea {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 1rem;
+    font-family: inherit;
+    width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.15);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 999px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+
+.btn-secondary { background: var(--secondary); color: #fff; }
+.btn-secondary:hover { background: #1c1f26; }
+
+.section-title { margin: 0 0 16px; font-size: 1.4rem; }
+
+.day-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.day-card h3 { margin: 0 0 4px; color: var(--primary); }
+.day-card .focus { margin: 0 0 10px; font-weight: 600; color: var(--secondary); }
+
+.day-card dl { margin: 0; }
+.day-card dt { font-weight: 700; font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+.day-card dd { margin: 2px 0 0; }
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.profile-grid > div { display: flex; flex-direction: column; }
+.profile-grid .label { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+
+.badge {
+    display: inline-block;
+    background: #fff3e0;
+    color: var(--primary-dark);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.alert {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.alert-success { background: var(--success-bg); color: var(--success-text); }
+
+.raw-plan {
+    white-space: pre-wrap;
+    background: #f9fafb;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.note { color: var(--muted); font-style: italic; }
+
+.examples ul { margin: 6px 0 0; padding-left: 20px; color: var(--muted); }
+
+.error-card { text-align: center; }
+.error-card p { color: var(--muted); margin: 12px 0 20px; }
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+}
+
+.stat-box {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+}
+
+.stat-number { display: block; font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+.stat-label { display: block; font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-top: 4px; }
+
+.goals-box { text-align: left; }
+.goal-list { list-style: none; margin: 8px 0 0; padding: 0; font-size: 0.85rem; color: var(--text); }
+
+.search-form { display: flex; gap: 10px; margin-top: 12px; }
+.search-form input { flex: 1; }
+
+.user-row-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.user-row-meta { color: var(--muted); font-size: 0.9rem; }
+.feedback-line { background: #fff8f0; padding: 8px 12px; border-radius: 8px; }
+
+details { margin-top: 10px; }
+details summary { cursor: pointer; font-weight: 700; color: var(--secondary); padding: 6px 0; }
+
+.mini-day-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.mini-day {
+    background: var(--bg);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+}
+
+.disclaimer {
+    max-width: 1100px;
+    margin: 0 auto 30px;
+    padding: 16px 20px;
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #7a5a00;
+}
+
+@media (max-width: 600px) {
+    .form-row-half { flex-direction: column; }
+    .navbar { flex-direction: column; align-items: flex-start; }
+    .navbar nav a { margin-left: 0; margin-right: 16px; }
+}

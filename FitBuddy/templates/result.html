@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Your Plan - FitBuddy{% endblock %}
+
+{% block content %}
+{% if just_updated %}
+<div class="alert alert-success">Your workout plan has been updated successfully.</div>
+{% endif %}
+
+<section class="card">
+    <h2>{{ user.name }}'s Fitness Profile</h2>
+    <div class="profile-grid">
+        <div><span class="label">User ID</span><span>{{ user.user_id }}</span></div>
+        <div><span class="label">Age</span><span>{{ user.age }}</span></div>
+        <div><span class="label">Weight</span><span>{{ user.weight }} kg</span></div>
+        <div><span class="label">Fitness Goal</span><span>{{ user.goal }}</span></div>
+        <div><span class="label">Workout Intensity</span><span>{{ user.intensity }}</span></div>
+    </div>
+    {% if is_updated %}
+    <p class="badge">Showing your feedback-updated plan</p>
+    {% endif %}
+</section>
+
+<section>
+    <h2 class="section-title">Your 7-Day Workout Plan</h2>
+
+    {% if display_plan.days %}
+    <div class="day-grid">
+        {% for day in display_plan.days %}
+        <div class="card day-card">
+            <h3>{{ day.day }}</h3>
+            <p class="focus">Focus: {{ day.focus }}</p>
+            <dl>
+                <dt>Warm-up</dt><dd>{{ day.warm_up }}</dd>
+                <dt>Exercises</dt><dd>{{ day.exercises }}</dd>
+                <dt>Sets / Reps / Duration</dt><dd>{{ day.sets_reps }}</dd>
+                <dt>Rest</dt><dd>{{ day.rest }}</dd>
+                <dt>Cooldown</dt><dd>{{ day.cooldown }}</dd>
+            </dl>
+        </div>
+        {% endfor %}
+    </div>
+    {% elif display_plan.raw_text %}
+    <div class="card">
+        <p class="note">The AI response could not be parsed into a structured plan, so here is the plan as generated:</p>
+        <pre class="raw-plan">{{ display_plan.raw_text }}</pre>
+    </div>
+    {% else %}
+    <div class="card"><p>No plan available.</p></div>
+    {% endif %}
+</section>
+
+<section class="card">
+    <h2 class="section-title">Nutrition / Recovery Tip</h2>
+    {% if plan.nutrition_tip %}
+    <p>{{ plan.nutrition_tip }}</p>
+    {% else %}
+    <p class="note">The nutrition tip could not be generated this time. Your workout plan above is unaffected.</p>
+    {% endif %}
+</section>
+
+<section class="card">
+    <h2 class="section-title">Improve Your Plan</h2>
+    <form action="/submit-feedback" method="post" class="fitbuddy-form">
+        <input type="hidden" name="user_id" value="{{ user.user_id }}">
+        <div class="form-row">
+            <label for="feedback">Your feedback</label>
+            <textarea id="feedback" name="feedback" rows="3" required
+                maxlength="1000" placeholder="Example: Add more cardio and include an extra rest day."></textarea>
+        </div>
+        <button type="submit" class="btn btn-secondary">Update My Plan</button>
+    </form>
+</section>
+{% endblock %}

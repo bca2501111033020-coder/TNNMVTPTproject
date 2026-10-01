@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Feedback - FitBuddy{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+    <h2>Improve {{ user.name }}'s Plan</h2>
+    <p class="subtitle">Tell FitBuddy what you'd like to change and the AI will revise your 7-day plan.</p>
+
+    <form action="/submit-feedback" method="post" class="fitbuddy-form">
+        <input type="hidden" name="user_id" value="{{ user.user_id }}">
+        <div class="form-row">
+            <label for="feedback">Feedback</label>
+            <textarea id="feedback" name="feedback" rows="4" required
+                maxlength="1000" placeholder="Example: Add more cardio and include an extra rest day."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Plan</button>
+    </form>
+
+    <div class="examples">
+        <p class="label">Examples of useful feedback:</p>
+        <ul>
+            <li>Add more cardio</li>
+            <li>Include more rest days</li>
+            <li>Add yoga</li>
+            <li>Reduce workout intensity</li>
+            <li>Focus more on core exercises</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

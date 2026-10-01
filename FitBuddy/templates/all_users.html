@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard - FitBuddy{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Admin Dashboard</h2>
+
+    <div class="stats-grid">
+        <div class="stat-box">
+            <span class="stat-number">{{ total_users }}</span>
+            <span class="stat-label">Total Users</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-number">{{ total_plans }}</span>
+            <span class="stat-label">Total Plans</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-number">{{ total_updated }}</span>
+            <span class="stat-label">Updated Plans</span>
+        </div>
+        <div class="stat-box goals-box">
+            <span class="stat-label">Goals Distribution</span>
+            <ul class="goal-list">
+                {% for goal, count in goal_distribution.items() %}
+                <li>{{ goal }}: {{ count }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <form action="/view-all-users" method="get" class="search-form">
+        <input type="text" name="q" value="{{ search }}" placeholder="Search by name or user ID...">
+        <button type="submit" class="btn btn-secondary">Search</button>
+    </form>
+</section>
+
+<section>
+    {% if rows|length == 0 %}
+    <div class="card"><p>No users found yet. Generate a plan from the home page to see data here.</p></div>
+    {% endif %}
+
+    {% for row in rows %}
+    <div class="card user-row">
+        <div class="user-row-header">
+            <div>
+                <strong>{{ row.user.name }}</strong> ({{ row.user.user_id }})
+                &mdash; Age {{ row.user.age }}, {{ row.user.weight }} kg
+            </div>
+            <div class="user-row-meta">
+                Goal: {{ row.user.goal }} | Intensity: {{ row.user.intensity }} |
+                Created: {% if row.user.created_at %}{{ row.user.created_at.strftime('%Y-%m-%d %H:%M') }}{% else %}-{% endif %}
+            </div>
+        </div>
+
+        {% if not row.plan %}
+        <p class="note">This user has not generated a plan yet.</p>
+        {% else %}
+        {% if row.plan.feedback %}
+        <p class="feedback-line"><strong>Feedback:</strong> {{ row.plan.feedback }}</p>
+        {% endif %}
+
+        <details>
+            <summary>View Original Plan</summary>
+            {% if row.original_display.days %}
+            <div class="mini-day-grid">
+                {% for day in row.original_display.days %}
+                <div class="mini-day">
+                    <strong>{{ day.day }}</strong> - {{ day.focus }}<br>
+                    Exercises: {{ day.exercises }}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <pre class="raw-plan">{{ row.original_display.raw_text }}</pre>
+            {% endif %}
+        </details>
+
+        {% if row.updated_display %}
+        <details>
+            <summary>View Updated Plan</summary>
+            {% if row.updated_display.days %}
+            <div class="mini-day-grid">
+                {% for day in row.updated_display.days %}
+                <div class="mini-day">
+                    <strong>{{ day.day }}</strong> - {{ day.focus }}<br>
+                    Exercises: {{ day.exercises }}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <pre class="raw-plan">{{ row.updated_display.raw_text }}</pre>
+            {% endif %}
+        </details>
+        {% endif %}
+        {% endif %}
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}
